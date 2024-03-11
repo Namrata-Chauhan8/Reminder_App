@@ -121,17 +121,17 @@ const Reminder = (e) => {
   };
 
   const fetchReminders = async () => {
-    try {
-      // Accessing the cookie named "token"
-      const tokenCookie = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('token='));
+    
+      // // Accessing the cookie named "token"
+      // const tokenCookie = document.cookie
+      //   .split('; ')
+      //   .find(row => row.startsWith('token='));
   
       // Extracting the token value
-      const token = tokenCookie ? tokenCookie.split('=')[1] : null;
-  
-      if (token && userId) { // Check if token and userId exist
-        const getReminder = await dispatch(getReminderAction(userId, token));
+      // const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+    try {
+      if (userId) { 
+        const getReminder = await dispatch(getReminderAction(userId));
         if (getReminder) {
           setArray(getReminder.data.getList);
         }
@@ -142,7 +142,6 @@ const Reminder = (e) => {
       console.error("Error fetching reminders:", error);
     }
   };
-  
 
   useEffect(() => {
     try {
