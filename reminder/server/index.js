@@ -24,13 +24,13 @@ app.get('/', (req, res) => {
 app.use('/api',route);
 app.use('/api2',route);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);   
-  if (res.headersSent) {
-    return next(err);
-  }
-  res.status(500).json({ error: err.message || 'Internal Server Error' });
-});
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);   
+//   if (res.headersSent) {
+//     return next(err);
+//   }
+//   res.status(500).json({ error: err.message || 'Internal Server Error' });
+// });
 
 app.listen(port, () => {
   console.log(`Server is listening at port ${port}`);
