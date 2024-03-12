@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import "./Navbar.css";
+import "../../assets/Global.scss";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
-        <NavLink to="/" className="navbar-brand">
+        <NavLink to="#" className="navbar-brand">
           REMINDER APP
         </NavLink>
         <form className="d-flex mr-2">

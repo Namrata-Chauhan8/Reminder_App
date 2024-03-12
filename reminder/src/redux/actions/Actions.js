@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 import {
   SERVER_URL,
   LOGIN,
@@ -24,14 +25,14 @@ import {
   UPDATE_REMINDER_FAILURE,
   GET_REMINDER_SUCCESS,
   GET_REMINDER_FAILURE
-} from "../../constants/ActionTypes";
+} from "../actions/ActionTypes.js";
 
-// const instance = axios.create({
-// 	withCredentials: true,
-// 	baseURL: 'http://127.0.0.1:5000',
-// 	headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
-// 	credentials: 'include',
-// })
+const instance = axios.create({
+	withCredentials: true,
+	baseURL: 'http://127.0.0.1:5000',
+	headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+	credentials: 'include',
+})
 
 export const login = (email, password) => {
   return async (dispatch) => {
@@ -40,7 +41,7 @@ export const login = (email, password) => {
       const response = await axios.post(`${SERVER_URL}${LOGIN}`, {
         email,
         password,
-      });
+      },{withCredentials: true });
 
       if (response && response.data) {
         localStorage.setItem("id", response.data.user._id);
@@ -123,7 +124,7 @@ export const deleteReminderAction=(deleteId,userId)=>{
 export const getReminderAction=(getId)=>{
   return async (dispatch)=>{
     try {
-      const response =await axios.get(`${SERVER_URL}${GET_REMINDER}${getId}`);
+      const response =await axios.get(`${SERVER_URL}${GET_REMINDER}${getId}`, { withCredentials: true , credentials: 'include'});
       dispatch({type: GET_REMINDER_SUCCESS})
       return response.data.getList;
     } catch (error) {

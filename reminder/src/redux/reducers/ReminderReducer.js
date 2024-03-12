@@ -7,8 +7,7 @@ import {
   GET_REMINDER_FAILURE,
   UPDATE_REMINDER_SUCCESS,
   UPDATE_REMINDER_FAILURE,
-  REMOVE_REMINDER_FROM_STATE
-} from "../../constants/ActionTypes.js";
+} from "../actions/ActionTypes.js";
 
 const initialState = {
   reminders: [],

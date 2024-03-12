@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
-import Signup from "./components/accounts/register/Signup";
-import Login from "./components/accounts/login/Login";
-import Home from "./components/home/Home";
-import Reminder from "./components/reminder/Reminder";
+import Signup from "./views/accounts/register/Signup";
+import Login from "./views/accounts/login/Login";
+import Home from "./views/home/Home";
+import Reminder from "./views/reminder/Reminder";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

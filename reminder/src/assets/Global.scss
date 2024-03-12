@@ -1,0 +1,35 @@
+.navbar {
+    background-color: #f8f9fa;
+    padding: 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+    &-brand {
+      font-size: 1.5rem;
+      color: #343a40;
+      text-decoration: none;
+    }
+  }
+  
+  .btn {
+    font-size: 1rem;
+    padding: 8px 10px;
+    margin: auto;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  
+    &-outline-success {
+      border: 1px solid #28a745;
+      color: #28a745;
+  
+      &:hover {
+        background-color: #28a745;
+        color: #fff;
+      }
+    }
+  
+    .active &-outline-success {
+      background-color: #28a745;
+      color: #fff;
+    }
+  }
+  

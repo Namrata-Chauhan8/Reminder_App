@@ -11,7 +11,7 @@ import "react-time-picker/dist/TimePicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReminderList from "./ReminderList";
-import "./Reminder.css";
+import "./Reminder.scss";
 import Update from "./Update";
 import axios from "axios";
 import {
@@ -60,15 +60,13 @@ const Reminder = (e) => {
   const addReminder = async () => {
     try {
       // Accessing the cookie named "token"
-      // const tokenCookie = document.cookie
-      //   .split('; ')
-      //   .find(row => row.startsWith('token='));
-      //   console.log(tokenCookie)
+      const tokenCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('token='));
   
-      // // Extracting the token value
-      // const token = tokenCookie ? tokenCookie.split('=')[1] : null;
-      // // console.log("hey",token);
-      // // console.log("hello",token);
+      // Extracting the token value
+      const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+      console.log("hello",token);
       const newReminder = {
         title: Input.title,
         description: Input.description,
@@ -78,8 +76,8 @@ const Reminder = (e) => {
       };
     
   
-      // if (token) { // Check if token exists
-        const success = await dispatch(addReminderAction(newReminder));
+      if (token) { // Check if token exists
+        const success = await dispatch(addReminderAction(newReminder, token));
         if (success) {
           setInput({
             title: "",
@@ -92,9 +90,9 @@ const Reminder = (e) => {
         } else {
           toast.error("Failed to add reminder");
         }
-      // } else {
-      //   toast.error("User not authenticated"); // Handle case where token is not present
-      // }
+      } else {
+        toast.error("User not authenticated"); // Handle case where token is not present
+      }
     } catch (error) {
       console.error("Error adding reminder:", error);
       toast.error("Failed to add reminder");
@@ -121,17 +119,17 @@ const Reminder = (e) => {
   };
 
   const fetchReminders = async () => {
-    
-      // // Accessing the cookie named "token"
-      // const tokenCookie = document.cookie
-      //   .split('; ')
-      //   .find(row => row.startsWith('token='));
+    try {
+      // Accessing the cookie named "token"
+      const tokenCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('token='));
   
       // Extracting the token value
-      // const token = tokenCookie ? tokenCookie.split('=')[1] : null;
-    try {
-      if (userId) { 
-        const getReminder = await dispatch(getReminderAction(userId));
+      const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+  
+      if (token && userId) { // Check if token and userId exist
+        const getReminder = await dispatch(getReminderAction(userId, token));
         if (getReminder) {
           setArray(getReminder.data.getList);
         }
@@ -142,23 +140,19 @@ const Reminder = (e) => {
       console.error("Error fetching reminders:", error);
     }
   };
+  
 
   useEffect(() => {
-    try {
-      if (userId) {
-        const fetch = async () => {
-          await axios
-            .get(`${SERVER_URL}${GET_REMINDER}${userId}`)
-            .then((response) => {
-              setArray(response.data.getList);
-            });
-        };
-        fetch();
-      }
-    } catch (error) {
-      console.error("Error fetching reminders:", error);
+    if (userId) {
+      const fetch = async () => {
+        await axios
+          .get(`${SERVER_URL}${GET_REMINDER}${userId}`)
+          .then((response) => {
+            setArray(response.data.getList);
+          });
+      };
+      fetch();
     }
-    
   }, [Input]);
 
   const update = (value) => {

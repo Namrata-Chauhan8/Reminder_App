@@ -1,6 +1,6 @@
 const User = require("../model/User"); 
 const bcrypt = require('bcrypt'); 
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const signupUser=async (req, res) => {
     try {
@@ -26,9 +26,9 @@ const signupUser=async (req, res) => {
 
 
 
-  // const generateToken = (id) => {
-  //   return jwt.sign({ id },"thisIsSecretKey", { expiresIn: "1d" });
-  // };
+  const generateToken = (id) => {
+    return jwt.sign({ id },"thisIsSecretKey", { expiresIn: "1d" });
+  };
 
 
 
@@ -45,19 +45,19 @@ const signupUser=async (req, res) => {
         return res.status(401).json({ msg: 'Invalid password' });
       }
       else{
-        // const token = generateToken(user._id);
-        // console.log(token)
-        // res.header('Access-Control-Allow-Credentials', true);
-        // const newCookieName = `token`;
-        // res.cookie(newCookieName, token, {
-        //   path: "/",
-        //   httpOnly: true,
-        //   expires: new Date(Date.now() + 1000 * 86400), // 1 day
-        //   sameSite: "strict",
-        //   secure: true,
+        const token = generateToken(user._id);
+        console.log(token)
+        res.header('Access-Control-Allow-Credentials', true);
+        const newCookieName = `token`;
+        res.cookie(newCookieName, token, {
+          path: "/",
+          httpOnly: true,
+          expires: new Date(Date.now() + 1000 * 86400), // 1 day
+          sameSite: "strict",
+          secure: true})
         res.status(200).json({ msg: 'Login successful', user });
+        localStorage.setItem('token',token)
         };
-        // localStorage.setItem('token',token)
       }
       }catch (error) {
       console.error(error.message);

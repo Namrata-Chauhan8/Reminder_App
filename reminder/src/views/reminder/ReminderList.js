@@ -1,5 +1,5 @@
 import React from "react";
-import "./Reminder.css";
+import "./Reminder.scss";
 import { AiFillDelete } from "react-icons/ai";
 import { FaPen } from "react-icons/fa6";
 

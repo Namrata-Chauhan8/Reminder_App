@@ -3,8 +3,10 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../redux/actions/Actions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import "./Login.css";
-import { LOGIN_SUCCESS } from "../../../constants/ActionTypes";
+import "../Account.scss";
+import { LOGIN_SUCCESS } from "../../../redux/actions/ActionTypes";
+import { EMAIL_REQUIRED, PASSWORD_REQUIRED } from "../../../constants/Message";
+
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-form">
+    <div className="form">
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
@@ -45,8 +47,8 @@ const Login = () => {
             autoComplete="username"
           />
           {errors.email && (
-            <span className="error-message" style={{ color: "red" }}>
-              Email is required
+            <span className="error" >
+              {EMAIL_REQUIRED}
             </span>
           )}
         </div>
@@ -59,8 +61,8 @@ const Login = () => {
             autoComplete="current-password"
           />
           {errors.password && (
-            <span className="error-message" style={{ color: "red" }}>
-              Password is required
+            <span className="error">
+              {PASSWORD_REQUIRED}
             </span>
           )}
         </div>

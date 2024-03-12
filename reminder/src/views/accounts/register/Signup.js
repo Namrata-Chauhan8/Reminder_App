@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import "./SignUp.css";
+import "../Account.scss";
 import { signup } from "../../../redux/actions/Actions";
-import { REGISTER_SUCCESS } from "../../../constants/ActionTypes";
+import { REGISTER_SUCCESS } from "../../../redux/actions/ActionTypes";
+import {EMAIL_REQUIRED, PASSWORD_LENGTH, PASSWORD_REQUIRED, SIGNUP_CHECK_PASSWORD, USERNAME_REQUIRED,} from "../../../constants/Message"
 
 const Signup = () => {
   const {
@@ -22,7 +23,7 @@ const Signup = () => {
     if (formData.password !== formData.confirmPassword) {
       setError("confirmPassword", {
         type: "manual",
-        message: "Password and confirm password should be the same",
+        message: SIGNUP_CHECK_PASSWORD,
       });
       return;
     }
@@ -36,7 +37,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="register-form">
+    <div className="form">
       <h2>SignUp</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
@@ -48,7 +49,7 @@ const Signup = () => {
             autoComplete="username"
             {...register("username", { required: true })}
           />
-          {errors.username && <p className="error">Username is required</p>}
+          {errors.username && <p className="error">{USERNAME_REQUIRED}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -59,7 +60,7 @@ const Signup = () => {
             autoComplete="email"
             {...register("email", { required: true })}
           />
-          {errors.email && <p className="error">Email is required</p>}
+          {errors.email && <p className="error">{EMAIL_REQUIRED}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
@@ -72,16 +73,16 @@ const Signup = () => {
               required: true,
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters long",
+                message: PASSWORD_LENGTH,
               },
               pattern: {
                 value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
                 message:
-                  "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character",
+                  PASSWORD_LENGTH,
               },
             })}
           />
-          {errors.password && <p className="error">Password is required</p>}
+          {errors.password && <p className="error">{PASSWORD_REQUIRED}</p>}
 
           {errors.password && (
             <p className="error">{errors.password.message}</p>

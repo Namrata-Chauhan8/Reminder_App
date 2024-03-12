@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DatePicker from "react-datepicker";
 import axios from "axios";
+import "./Reminder.scss"
 import { SERVER_URL, GET_REMINDER} from "../../constants/Constants";
 
 const Update = ({ display, UpdateArray, setArray }) => {
